@@ -1,0 +1,12 @@
+NEXVIA — شروع تمیز ساخت APK
+
+این نسخه را برای GitHub Actions آماده کرده‌ایم تا دیگر درگیر Workflow خراب Bitrise نشوی.
+
+فقط این کارها را انجام بده:
+1) فایل‌های داخل این ZIP را در ریشه Repository گیت‌هاب NEXVIA قرار بده.
+2) به تب Actions برو.
+3) Workflow با نام «Build NEXVIA APK» را باز کن.
+4) اگر دکمه «Run workflow» را دیدی، آن را بزن.
+5) بعد از تمام شدن Build، وارد همان اجرا شو و از بخش Artifacts فایل «NEXVIA-debug-apk» را دانلود کن.
+
+این APK نسخه فعلی رابط NEXVIA است و دکمه اتصال در آن هنوز Demo است؛ اتصال واقعی WireGuard در این مرحله پیاده‌سازی نشده است.

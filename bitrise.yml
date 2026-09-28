@@ -1,0 +1,27 @@
+format_version: "11"
+project_type: android
+
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+workflows:
+  build_apk:
+    steps:
+      - git-clone@8: {}
+      - script@1:
+          title: Build NEXVIA APK directly with Gradle 8.9
+          inputs:
+            - content: |
+                #!/usr/bin/env bash
+                set -euo pipefail
+                GRADLE_VERSION="8.9"
+                ZIP="${TMPDIR:-/tmp}/gradle-${GRADLE_VERSION}.zip"
+                DIR="${TMPDIR:-/tmp}/gradle-${GRADLE_VERSION}"
+                curl -fsSL --retry 5 "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o "$ZIP"
+                rm -rf "$DIR"
+                mkdir -p "$DIR"
+                unzip -q "$ZIP" -d "$DIR"
+                "$DIR/gradle-${GRADLE_VERSION}/bin/gradle" --no-daemon --stacktrace :app:assembleDebug
+                test -f app/build/outputs/apk/debug/app-debug.apk
+      - deploy-to-bitrise-io@2:
+          inputs:
+            - deploy_path_list: app/build/outputs/apk/debug/app-debug.apk
